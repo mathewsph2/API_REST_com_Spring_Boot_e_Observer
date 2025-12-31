@@ -1,4 +1,8 @@
-# 🧩 API REST com Spring Boot — Design Pattern Observer
+# 🧩 DESAFIO DE PROJETO: Design Patterns com Java: Dos Clássicos (GoF) ao Spring Framework
+
+## Bootcamp: CI&T - Backend com Java & AWS 
+
+### Realização: Digital Innovation One
 
 Este projeto demonstra a implementação completa de uma **API REST em Spring Boot** utilizando o **Design Pattern Observer** para notificação automática de mudanças no estado de um pedido.
 
