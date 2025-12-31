@@ -46,4 +46,96 @@ No projeto:
   - `NotificacaoObserver`
 - **Evento observado:** mudança de status do pedido
 
+---
+
+
+---
+
+## 🔧 Funcionamento da API
+
+### 📌 Endpoints disponíveis
+
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| GET | `/pedidos/{id}` | Busca um pedido pelo ID |
+| PUT | `/pedidos/{id}/status?status=NOVO` | Atualiza o status do pedido e dispara os observers |
+
+---
+
+## 🧪 Exemplos de testes
+
+### ✔️ Buscar pedido
+
+GET http://localhost:8080/pedidos/1
+
+### ✔️ Atualizar status
+
+PUT http://localhost:8080/pedidos/1/status?status=ENVIADO
+
+### ✔️ Saída esperada no console (Observer funcionando)
+
+[LOG] Pedido 1 mudou para: ENVIADO
+
+[NOTIFICAÇÃO] Cliente Marluce foi avisado sobre o status: ENVIADO
+
+
+
+---
+
+## 🧩 Implementação do Observer
+
+### Subject
+
+```java
+public class PedidoSubject {
+    private final List<PedidoObserver> observers = new ArrayList<>();
+
+    public void adicionarObserver(PedidoObserver observer) {
+        observers.add(observer);
+    }
+
+    public void notificar(Pedido pedido) {
+        observers.forEach(o -> o.atualizar(pedido));
+    }
+}
+
+
+public interface PedidoObserver {
+    void atualizar(Pedido pedido);
+}
+```
+
+### Observers concretos
+
+LogObserver: registra no console
+
+NotificacaoObserver: simula envio de notificação ao cliente
+
+
+## 🗃️ Dados iniciais
+
+
+Os pedidos são carregados em memória no PedidoService:
+
+
+banco.put(1L, new Pedido(1L, "Marluce", StatusPedido.NOVO));
+
+banco.put(2L, new Pedido(2L, "Carlos", StatusPedido.PROCESSANDO));
+
+banco.put(3L, new Pedido(3L, "Ana Paula", StatusPedido.ENVIADO));
+
+
+
+## 🧭 Como executar
+
+Clone o repositório
+
+Importe no Eclipse ou IntelliJ como projeto Maven
+
+Execute a classe:
+
+ObserverApiApplication.java
+
+
+
 
